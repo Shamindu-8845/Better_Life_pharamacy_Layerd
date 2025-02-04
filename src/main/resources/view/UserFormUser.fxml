@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #f7f1e3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.demo.controller.UserFormUserController">
+   <children>
+      <TableView fx:id="tblUser" layoutX="77.0" layoutY="246.0" prefHeight="200.0" prefWidth="348.0">
+        <columns>
+          <TableColumn fx:id="colUser_Id" prefWidth="96.79998016357422" text="User_Id" />
+            <TableColumn fx:id="colPassword" prefWidth="132.79998779296875" text="Password" />
+            <TableColumn fx:id="colUsername" prefWidth="117.59991455078125" text="Username" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" prefHeight="38.0" prefWidth="504.0" style="-fx-background-color: #f1c40f;" text="User Table">
+         <font>
+            <Font name="Candara Bold Italic" size="16.0" />
+         </font></Label>
+      <Button fx:id="btnAddUser" layoutX="131.0" layoutY="490.0" mnemonicParsing="false" onAction="#colAddUser" style="-fx-background-color: #009432;" text="AddUser">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font></Button>
+      <Button fx:id="btnUpdateSupplier" layoutX="230.0" layoutY="490.0" mnemonicParsing="false" onAction="#onActionUpdateSupplier" style="-fx-background-color: #0652DD;" text="UpdateSupplier">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font></Button>
+      <Button fx:id="btnDeleteSupplier" layoutX="361.0" layoutY="490.0" mnemonicParsing="false" onAction="#colDeleteSupplier" style="-fx-background-color: #EA2027;" text="DeleteSupplier">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font></Button>
+      <HBox layoutX="53.0" layoutY="78.0" prefHeight="26.0" prefWidth="400.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="58.0" text="User_Id">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUser_Id" prefHeight="26.0" prefWidth="313.0" promptText="User_Id" />
+         </children>
+      </HBox>
+      <HBox layoutX="51.0" layoutY="125.0" prefHeight="26.0" prefWidth="431.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="62.0" text="Password">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPassword" prefHeight="26.0" prefWidth="313.0" promptText="Password" />
+         </children>
+      </HBox>
+      <HBox layoutX="51.0" layoutY="173.0" prefHeight="26.0" prefWidth="406.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="62.0" text="Username">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUsername" prefHeight="26.0" prefWidth="313.0" promptText="Username" />
+         </children>
+      </HBox>
+      <Line endX="399.0000305175781" endY="3.814697265625E-6" layoutX="104.0" layoutY="38.0" startX="-100.0" />
+      <Button layoutX="39.0" layoutY="491.0" mnemonicParsing="false" onAction="#onActionReset" prefHeight="27.0" prefWidth="70.0" style="-fx-background-color: #d35400;" text="Reset">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

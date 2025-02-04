@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f7f1e3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.demo.controller.InsuranceFormController">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="60.0" prefHeight="202.0" prefWidth="447.0">
+         <children>
+            <HBox layoutX="26.0" layoutY="16.0" prefHeight="26.0" prefWidth="378.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="104.0" text="Insurance_Id">
+                     <font>
+                        <Font name="Candara Bold Italic" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtInsrurance_Id" prefHeight="26.0" prefWidth="255.0" promptText="Insurance_Id" />
+               </children>
+            </HBox>
+            <HBox layoutX="24.0" layoutY="58.0" prefHeight="26.0" prefWidth="378.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="109.0" text="Campany Name">
+                     <font>
+                        <Font name="Candara Bold Italic" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtCompany_Name" prefHeight="26.0" prefWidth="258.0" promptText="Campany Name" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="92.0" prefHeight="26.0" prefWidth="378.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="106.0" text="Discount">
+                     <font>
+                        <Font name="Candara Bold Italic" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtDiscount" prefHeight="26.0" prefWidth="259.0" promptText="Discount" />
+               </children>
+            </HBox>
+            <HBox layoutX="25.0" layoutY="129.0" prefHeight="26.0" prefWidth="378.0">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="105.0" text="Customer_Id">
+                     <font>
+                        <Font name="Candara Bold Italic" size="14.0" />
+                     </font></Label>
+                  <TextField fx:id="txtCustomer_Id" prefHeight="26.0" prefWidth="262.0" promptText="C001" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblInsurance" layoutX="82.0" layoutY="277.0" prefHeight="202.0" prefWidth="534.0">
+        <columns>
+          <TableColumn fx:id="colInsurance_Id" prefWidth="104.80005645751953" text="Insurance_Id" />
+          <TableColumn fx:id="colCustomer_Id" prefWidth="100.0" text="Customer_Id" />
+            <TableColumn fx:id="colCampany_Name" prefWidth="230.39996337890625" text="Company_Name" />
+            <TableColumn fx:id="colDiscount" prefWidth="99.20004272460938" text="Discout" />
+        </columns>
+      </TableView>
+      <Line endX="585.9000244140625" endY="-13.5999755859375" layoutX="115.0" layoutY="276.0" startX="-115.00001525878906" startY="-13.5999755859375" />
+      <Button layoutX="9.0" layoutY="9.0" mnemonicParsing="false" onAction="#onActionDashBoard" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #575fcf;" text="DashBoard">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Line endX="576.8999633789062" endY="28.200000762939453" layoutX="125.0" layoutY="27.0" startX="-127.10002136230469" startY="28.200000762939453" />
+      <Label alignment="CENTER" layoutX="157.0" layoutY="11.0" prefHeight="34.0" prefWidth="378.0" text="InsuranceManage Form">
+         <font>
+            <Font name="Candara Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnAddInsurance" layoutX="499.0" layoutY="77.0" mnemonicParsing="false" onAction="#onActionAddInsurance" opacity="0.76" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: #009432;" text="Add Insurance">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeletInsurance" layoutX="501.0" layoutY="122.0" mnemonicParsing="false" onAction="#onActionUpdateInsurance" opacity="0.76" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #0652DD;" text="Update Insurance">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDeleteInsurance" layoutX="500.0" layoutY="163.0" mnemonicParsing="false" onAction="#onActionDeletInsurance" opacity="0.76" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #EA2027;" text="Delete Insurance">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="500.0" layoutY="205.0" mnemonicParsing="false" onAction="#onActionReset" opacity="0.76" prefHeight="26.0" prefWidth="150.0" style="-fx-background-color: #EE5A24;" text="Reset">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Line endX="-15.60003662109375" endY="-232.3000030517578" layoutX="473.0" layoutY="287.0" startX="-15.60003662109375" startY="-24.0999755859375" />
+      <Line endX="589.2999877929688" endY="30.60003662109375" layoutX="115.0" layoutY="499.0" startX="-115.0" startY="30.60003662109375" />
+      <Label alignment="CENTER" layoutX="121.0" layoutY="577.0" prefHeight="18.0" prefWidth="426.0" text="© 2024 Better Life Pharmacy. All rights reserved." />
+      <ImageView layoutX="12.0" layoutY="11.0">
+         <image>
+            <Image url="@../images/DashBoardicone.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

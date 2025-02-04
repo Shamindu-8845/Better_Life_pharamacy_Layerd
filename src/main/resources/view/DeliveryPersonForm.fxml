@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f7f1e3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.demo.controller.HomeDeliveryManageFormController">
+   <children>
+      <Label alignment="CENTER" layoutX="160.0" layoutY="2.0" prefHeight="29.0" prefWidth="379.0" text="Delivery Details Form">
+         <font>
+            <Font name="Candara Bold Italic" size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblDelivery" layoutX="16.0" layoutY="286.0" prefHeight="200.0" prefWidth="667.0">
+        <columns>
+          <TableColumn fx:id="colDelivery_Id" prefWidth="75.0" text="Delivery_Id" />
+          <TableColumn fx:id="colDelivery_Date" prefWidth="94.39994049072266" text="Delivery_Date" />
+            <TableColumn fx:id="colOrder_Id" prefWidth="78.4000244140625" text="Order_Id" />
+            <TableColumn fx:id="colLocation" prefWidth="188.0" text="Location" />
+            <TableColumn fx:id="colCustomerPhone_No" prefWidth="126.39999389648438" text="CustomerPhone_No" />
+            <TableColumn fx:id="colAction" prefWidth="103.20000000000005" text="Action" />
+        </columns>
+      </TableView>
+      <HBox layoutX="22.0" layoutY="58.0" prefHeight="26.0" prefWidth="502.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="142.0" text="Delivery_Id">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDelivery_Id" prefHeight="26.0" prefWidth="327.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="18.0" layoutY="98.0" prefHeight="26.0" prefWidth="502.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="148.0" text="Delivery_Date">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDelivery_Date" prefHeight="26.0" prefWidth="327.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="16.0" layoutY="135.0" prefHeight="26.0" prefWidth="502.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="148.0" text="Order_Id">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtOrder_Id" prefHeight="26.0" prefWidth="328.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="15.0" layoutY="174.0" prefHeight="26.0" prefWidth="511.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="148.0" text="Location">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtLocation" prefHeight="26.0" prefWidth="333.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="14.0" layoutY="213.0" prefHeight="26.0" prefWidth="611.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="151.0" text="CustomerPhone_No">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCustomerPhone_No" prefHeight="26.0" prefWidth="330.0" />
+         </children>
+      </HBox>
+      <Line endX="583.0" endY="-13.60000228881836" layoutX="117.0" layoutY="48.0" startX="-116.99999237060547" startY="-13.60000228881836" />
+      <Line endX="482.89996337890625" layoutX="219.0" layoutY="260.0" startX="-219.0" />
+      <Line endX="370.5" endY="-492.1000061035156" layoutX="133.0" layoutY="527.0" startX="370.5" startY="-267.5" />
+      <Button fx:id="btnDashboard" layoutX="3.0" layoutY="1.0" mnemonicParsing="false" onAction="#onActionDashboard" prefHeight="30.0" prefWidth="122.0" style="-fx-background-color: #575fcf;" text="Dashboard">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <ImageView layoutX="7.0" layoutY="5.0">
+         <image>
+            <Image url="@../images/DashBoardicone.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnAdd" layoutX="539.0" layoutY="59.0" mnemonicParsing="false" onAction="#onActionAddDelivery" opacity="0.95" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #27ae60;" text="Add Delivery">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnUpdate" layoutX="541.0" layoutY="99.0" mnemonicParsing="false" onAction="#onActionUpdateDelivery" opacity="0.95" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #2980b9;" text="Update Delivery">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnReset" layoutX="541.0" layoutY="139.0" mnemonicParsing="false" onAction="#onActionReset" opacity="0.95" prefHeight="26.0" prefWidth="148.0" style="-fx-background-color: #d35400;" text="Reset">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Line endX="588.5" layoutX="115.0" layoutY="518.0" startX="-114.99998474121094" />
+      <Label alignment="CENTER" layoutX="115.0" layoutY="575.0" prefHeight="18.0" prefWidth="522.0" text="© 2024 Better Life Pharmacy. All rights reserved." />
+   </children>
+</AnchorPane>

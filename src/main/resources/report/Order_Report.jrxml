@@ -1,0 +1,93 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Order_Report" language="java" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6480c1e-37d2-472e-84c7-39fd217f8fe3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<query language="SQL"><![CDATA[SELECT 
+    o.Order_Id,
+    o.Order_Date,
+    m.Medication_Id,
+    m.Name AS Medication_Name,
+    c.Customer_Id
+FROM 
+    customer c
+JOIN 
+    orders o ON c.Customer_Id = o.Customer_Id
+JOIN 
+    medication m ON o.Medication_Id = m.Medication_Id;
+]]></query>
+	<field name="Order_Id" class="java.lang.String"/>
+	<field name="Customer_Id" class="java.lang.String"/>
+	<field name="Medication_Id" class="java.lang.String"/>
+	<field name="Order_Date" class="java.lang.String"/>
+	<field name="Medication_Name" class="java.lang.String"/>
+	<background splitType="Stretch"/>
+	<title height="81" splitType="Stretch">
+		<element kind="staticText" uuid="256659a1-07be-4ea9-8f2d-d299eb48279b" x="180" y="-7" width="429" height="39" fontName="Serif" fontSize="23.0" underline="true" bold="true" italic="true" hTextAlign="Center">
+			<paragraph lineSpacing="Single" lineSpacingSize="1.0"/>
+			<text><![CDATA[Order ManageForm]]></text>
+		</element>
+		<element kind="staticText" uuid="787f8244-3f39-4d62-a783-c08b6c10e94d" x="0" y="47" width="469" height="30" fontSize="12.0">
+			<text><![CDATA[129/2A Galle Road Ambalangoda.]]></text>
+		</element>
+		<element kind="staticText" uuid="c1c3819d-4fb1-4690-b8cc-e791115fa244" x="0" y="26" width="188" height="30" forecolor="#F2231F" fontSize="14.0">
+			<text><![CDATA[Better_Life_Pharmacy]]></text>
+		</element>
+		<element kind="line" uuid="9243a732-e49c-4b3d-a6a5-cedf0e526f74" x="-19" y="73" width="841" height="1">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+	</title>
+	<pageHeader splitType="Stretch"/>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="6f483c85-4ffe-40b1-87ce-d01bb45f4d86" x="100" y="16" width="100" height="30" underline="true" bold="true">
+			<text><![CDATA[Customer_Id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba7aca8c-1111-4d5c-a983-e9a18da43b78"/>
+		</element>
+		<element kind="staticText" uuid="c38b3ef2-83ce-45c6-82a4-e203560018a9" x="-10" y="15" width="100" height="30" underline="true" bold="true">
+			<text><![CDATA[Order_Id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632568c2-5c4f-4756-b61d-a9dce8ef7508"/>
+		</element>
+		<element kind="staticText" uuid="41d4a986-2f9f-459a-8763-94182f3ada38" x="237" y="17" width="100" height="30" underline="true" bold="true">
+			<text><![CDATA[Order_Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2eec1edc-335e-4ca9-9030-47a9634c369c"/>
+		</element>
+		<element kind="staticText" uuid="7f0c7ccd-94f5-427d-a758-3fea99ddcd9a" x="370" y="20" width="100" height="30" underline="true" bold="true">
+			<text><![CDATA[Medication_Id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="44c49f5d-a506-4f8c-9699-42e1ee2f5c13"/>
+		</element>
+		<element kind="staticText" uuid="8b245f0d-d773-49d7-a1d9-f91986ae7c37" x="500" y="20" width="100" height="30" underline="true" bold="true">
+			<text><![CDATA[Medication_Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fbe71a03-c9c1-43f7-bfda-8d4f9c9754cf"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<element kind="textField" uuid="c9c5bb70-f270-433f-8ce5-0111d13d0161" x="103" y="3" width="100" height="30">
+				<expression><![CDATA[$F{Customer_Id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ba7aca8c-1111-4d5c-a983-e9a18da43b78"/>
+			</element>
+			<element kind="textField" uuid="a555a72e-0f32-42c3-8fa9-8a32ec9ccfd6" x="-7" y="2" width="100" height="30">
+				<expression><![CDATA[$F{Order_Id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="632568c2-5c4f-4756-b61d-a9dce8ef7508"/>
+			</element>
+			<element kind="textField" uuid="caf79422-9501-4ce1-890e-7a2d90323612" x="237" y="1" width="100" height="30">
+				<expression><![CDATA[$F{Order_Date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2eec1edc-335e-4ca9-9030-47a9634c369c"/>
+			</element>
+			<element kind="textField" uuid="8c43b580-9a53-4f46-8338-3d7b4e1e16d5" x="361" y="2" width="100" height="30">
+				<expression><![CDATA[$F{Medication_Id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="44c49f5d-a506-4f8c-9699-42e1ee2f5c13"/>
+			</element>
+			<element kind="textField" uuid="7bc0c623-e4b4-49b6-90db-d156f668b685" x="499" y="1" width="100" height="30">
+				<expression><![CDATA[$F{Medication_Name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fbe71a03-c9c1-43f7-bfda-8d4f9c9754cf"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter splitType="Stretch"/>
+	<pageFooter height="14" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch">
+		<element kind="staticText" uuid="c9895831-d6d8-49a9-9439-6e3efcc2e1fd" x="250" y="8" width="278" height="30" fontSize="12.0" underline="true" hTextAlign="Center">
+			<text><![CDATA[Thank You Choosing US!!!!!!]]></text>
+		</element>
+	</summary>
+</jasperReport>

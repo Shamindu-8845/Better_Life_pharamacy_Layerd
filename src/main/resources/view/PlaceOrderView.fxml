@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.demo.controller.PaymentCreateController">
+   <children>
+      <HBox layoutX="28.0" layoutY="88.0" prefHeight="26.0" prefWidth="264.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="192.0" text="Amount Order">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblAmount_Order" prefHeight="26.0" prefWidth="263.0" textFill="#12e74b" />
+         </children>
+      </HBox>
+      <HBox layoutX="28.0" layoutY="50.0" prefHeight="26.0" prefWidth="256.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="100.0" text="Payment_Id   ">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPayment" promptText="Payment_Id" />
+         </children>
+      </HBox>
+      <Line endX="499.8929443359375" endY="6.399993896484375" layoutX="101.0" layoutY="128.0" startX="-100.99998474121094" startY="6.399993896484375" />
+      <HBox layoutX="20.0" layoutY="183.0" prefHeight="26.0" prefWidth="250.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="100.0" text="Company_Name">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comBoxCompany_Name" onAction="#onActioncmbCampany_Name" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="20.0" layoutY="148.0" prefHeight="26.0" prefWidth="250.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="121.0" text="Insurance_Id">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtInsurance_Id" prefHeight="26.0" prefWidth="173.0" promptText="Insurance_Id" />
+         </children>
+      </HBox>
+      <HBox layoutX="28.0" layoutY="223.0" prefHeight="26.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="66.0" text="Discount">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDiscount" promptText="Discount" />
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="40.0" prefWidth="602.0">
+         <children>
+            <Button fx:id="btnHome" layoutX="14.0" layoutY="7.0" mnemonicParsing="false" onAction="#onActionDashboard" text="Home" textFill="#ff0f43" />
+            <Label layoutX="228.0" layoutY="4.0" prefHeight="34.0" prefWidth="162.0" text="Payment Form " textFill="#e30fff">
+               <font>
+                  <Font name="Candara Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Line endX="494.0" endY="-100.19998168945312" layoutX="108.0" layoutY="377.0" startX="-110.00000762939453" startY="-100.19998168945312" />
+      <AnchorPane layoutY="339.0" prefHeight="162.0" prefWidth="604.0">
+         <children>
+            <HBox layoutX="14.0" layoutY="54.0" prefHeight="26.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="105.0" text="Total Amount">
+                     <font>
+                        <Font name="Candara Bold Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalAmount" prefHeight="26.0" prefWidth="114.0" />
+               </children>
+            </HBox>
+            <Button fx:id="btnPayHere" layoutX="12.0" layoutY="104.0" mnemonicParsing="false" onAction="#onActionPayHere" prefHeight="34.0" prefWidth="228.0" style="-fx-background-color: #009432;" text="Pay here" textFill="#01360d">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnGenarateReport" layoutX="273.0" layoutY="104.0" mnemonicParsing="false" onAction="#onActionGenarateReport" prefHeight="34.0" prefWidth="128.0" style="-fx-background-color: #EA2027;" text="Genarate Report">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSendEmail" layoutX="427.0" layoutY="104.0" mnemonicParsing="false" onAction="#onActionSendEmail" prefHeight="34.0" prefWidth="162.0" style="-fx-background-color: #FFC312;" text="Send Email">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <HBox layoutX="318.0" layoutY="148.0" prefHeight="26.0" prefWidth="234.0">
+         <children>
+            <Label fx:id="lblCustomer_Id" prefHeight="26.0" prefWidth="139.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="372.0" layoutY="50.0" prefHeight="26.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="50.0" text="Date" />
+            <Label fx:id="lblDate" prefHeight="26.0" prefWidth="98.0" />
+         </children>
+      </HBox>
+      <HBox layoutX="13.0" layoutY="311.0" prefHeight="27.0" prefWidth="429.0">
+         <children>
+            <Label prefHeight="27.0" prefWidth="114.0" text="Payment Method">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="checkBoxCash" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Cash Payment" textFill="#12b4ff">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="checkBoxCard" mnemonicParsing="false" prefHeight="31.0" prefWidth="126.0" text="Card Payement" textFill="#12b4ff">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="checkBoxOther" mnemonicParsing="false" onAction="#onActionInsuraceCheck" prefHeight="34.0" prefWidth="60.0" text="Other" textFill="#12b4ff">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

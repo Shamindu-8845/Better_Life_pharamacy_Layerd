@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="content" prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f7f1e3;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.demo.controller.MedicationManageFormController">
+   <children>
+      <TableView fx:id="tblMedication" layoutX="15.0" layoutY="325.0" prefHeight="200.0" prefWidth="673.0">
+        <columns>
+          <TableColumn fx:id="colMedication_Id" prefWidth="91.20001029968262" text="Medication_Id" />
+          <TableColumn fx:id="colName" prefWidth="96.80005645751953" text="Name" />
+            <TableColumn fx:id="colPrice" prefWidth="75.20001220703125" text="Price" />
+            <TableColumn fx:id="colExpiry_Date" prefWidth="86.4000244140625" text="Expiry Date" />
+            <TableColumn fx:id="colStock_Level" prefWidth="78.4000244140625" text="Stock Level" />
+            <TableColumn fx:id="colDescription" prefWidth="245.59994506835938" text="Description" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnAdd1" layoutX="520.0" layoutY="107.0" mnemonicParsing="false" onAction="#onActionUpdate" opacity="0.76" prefHeight="27.0" prefWidth="138.0" style="-fx-background-color: #0652DD;" text="UpdateMedication">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAdd11" layoutX="521.0" layoutY="155.0" mnemonicParsing="false" onAction="#onActionDelete" opacity="0.76" prefHeight="27.0" prefWidth="138.0" style="-fx-background-color: #EA2027;" text="DeleteMedication">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnAdd" layoutX="520.0" layoutY="69.0" mnemonicParsing="false" onAction="#onActionAdd" opacity="0.76" prefHeight="27.0" prefWidth="138.0" style="-fx-background-color: #009432;" text="AddMedication">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <HBox layoutX="32.0" layoutY="68.0" prefHeight="26.0" prefWidth="441.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="92.0" text="Medication_ID" textFill="#070708">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtMedication_Id" prefHeight="26.0" prefWidth="352.0" promptText="Medication_ID" />
+         </children>
+      </HBox>
+      <HBox layoutX="32.0" layoutY="106.0" prefHeight="26.0" prefWidth="442.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="104.0" text="Name" textFill="#161618">
+               <font>
+                  <Font name="Candara Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtName" prefHeight="26.0" prefWidth="361.0" promptText="Name" />
+         </children>
+      </HBox>
+      <HBox layoutX="34.0" layoutY="144.0" prefHeight="26.0" prefWidth="417.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="78.0" text="Price" textFill="#070708">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPrice" prefHeight="26.0" prefWidth="326.0" promptText="Price" />
+         </children>
+      </HBox>
+      <HBox layoutX="34.0" layoutY="187.0" prefHeight="30.0" prefWidth="418.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="75.0" text="Expiry Date" textFill="#141418">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtExpiryDate" prefHeight="26.0" prefWidth="330.0" promptText="Expiry Date" />
+         </children>
+      </HBox>
+      <HBox layoutX="32.0" layoutY="228.0" prefHeight="26.0" prefWidth="418.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="79.0" text="Stock Level" textFill="#1c1c20">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtStockLevel" prefHeight="26.0" prefWidth="328.0" promptText="Stock level" />
+         </children>
+      </HBox>
+      <HBox layoutX="28.0" layoutY="266.0" prefHeight="38.0" prefWidth="418.0">
+         <children>
+            <Label prefHeight="30.0" prefWidth="84.0" text="Description" textFill="#17171b">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="txtDescription" prefHeight="38.0" prefWidth="328.0" promptText="Description" />
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="38.0" prefWidth="700.0">
+         <children>
+            <Button fx:id="btnDashBoard" layoutX="17.0" layoutY="5.0" mnemonicParsing="false" onAction="#onActionDashBorad" prefHeight="30.0" prefWidth="126.0" style="-fx-background-color: #575fcf;" text="DashBoard">
+               <font>
+                  <Font name="Candara Bold Italic" size="14.0" />
+               </font></Button>
+            <Label alignment="CENTER" layoutX="193.0" layoutY="7.0" prefHeight="26.0" prefWidth="340.0" text="Medicatoin ManageForm">
+               <font>
+                  <Font name="Candara Bold Italic" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnReset" layoutX="521.0" layoutY="201.0" mnemonicParsing="false" onAction="#onActionReset" opacity="0.76" prefHeight="26.0" prefWidth="138.0" style="-fx-background-color: #EE5A24;" text="Reset Feilds">
+         <font>
+            <Font name="Candara Bold Italic" size="14.0" />
+         </font>
+      </Button>
+      <Line endX="586.0" endY="3.814697265625E-6" layoutX="114.0" layoutY="49.0" startX="-113.99999237060547" startY="3.814697265625E-6" />
+      <ImageView layoutX="21.0" layoutY="8.0">
+         <image>
+            <Image url="@../images/DashBoardicone.png" />
+         </image>
+      </ImageView>
+      <Line endX="-80.9000244140625" endY="-137.5" layoutX="570.0" layoutY="187.0" startX="-80.9000244140625" startY="126.30001831054688" />
+      <Line endX="580.4928588867188" endY="-16.199981689453125" layoutX="122.0" layoutY="329.0" startX="-122.00000762939453" startY="-16.199981689453125" />
+      <Line endX="588.5" layoutX="115.0" layoutY="534.0" startX="-114.99999237060547" />
+      <Label alignment="CENTER" layoutX="142.0" layoutY="571.0" prefHeight="18.0" prefWidth="418.0" text="© 2024 Better Life Pharmacy. All rights reserved." />
+   </children>
+</AnchorPane>
