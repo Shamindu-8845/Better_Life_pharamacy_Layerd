@@ -206,10 +206,7 @@ public class OrderManageFormController {
             alert.show();
         }
     }
-
-
-
-
+    
     @FXML
     void onActionCustomer_phoneNo(ActionEvent event) {
         String phoneNo = txtPhone_NumberCustomer.getText();
@@ -230,7 +227,7 @@ public class OrderManageFormController {
         } catch (SQLException e) {
             e.printStackTrace();
             txtCustomerName.setText("Error retrieving customer");
-            txtCustomer_Ids.setText(""); // Clear the customer ID field in case of error
+            txtCustomer_Ids.setText("");
             Alert alert = new Alert(Alert.AlertType.ERROR, "An error occurred while searching for the customer.");
             alert.show();
         }
@@ -241,15 +238,6 @@ public class OrderManageFormController {
     private OrderDAOImpl orderDAOImpl = new OrderDAOImpl();
     private MedicationDAOImpl medicationDAOImpl = new MedicationDAOImpl();
     private CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
-
-//    public void initialize() {
-//        setCellValues();
-//        try {
-//            refreshPage();
-//        } catch (SQLException e) {
-//            new Alert(Alert.AlertType.ERROR, "Failed to load data!").show();
-//        }
-//    }
 
     private void setCellValues() {
         colMedication_Id.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getMedication_Id()));
@@ -278,7 +266,6 @@ public class OrderManageFormController {
     }
 
     private void clearFields() {
-//        comBoxCustomer_Id.getSelectionModel().clearSelection();
         comBoxMedication_Id.getSelectionModel().clearSelection();
         txtCustomerName.clear();
         txtMedication_Name.clear();
@@ -326,8 +313,6 @@ public class OrderManageFormController {
             }
         }
 
-
-
         Button removeBtn = new Button("Remove");
         CartTM newOrderDetailsDTO = new CartTM(selectedMedicationId, itemName, cartQty, unitPrice, total, removeBtn);
 
@@ -346,16 +331,15 @@ public class OrderManageFormController {
     void onActionchechBoxCustomer(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Customer Information Required");
-        alert.setHeaderText(null); // No header text
+        alert.setHeaderText(null);
         alert.setContentText("Please enter Customer Name and Address.");
-        alert.showAndWait(); // Display the alert
+        alert.showAndWait();
     }
 
     @FXML
     void onActionGenerateReport(ActionEvent event) {
 
     }
-
 
     private PaymentCreateController paymentCreateController;
 
@@ -366,46 +350,32 @@ public class OrderManageFormController {
     public double calculateTotal(double total) {
         int netTotal = 0;
 
-        // Calculate total from table
         for (int i = 0; i < tblCart.getItems().size(); i++) {
             netTotal += (double) colTotal.getCellData(i);
         }
 
-        // Fetch discount from the InsuranceModel (assuming it's a global variable or method)
-        double discount = getDiscountFromCompany();  // Method to fetch discount, can be fetched once per company
+        double discount = getDiscountFromCompany();
 
-        // Apply discount if available (assuming discount is in percentage)
         double finalTotal = netTotal - (netTotal * discount / 100);
 
-        // Update the local label
         lblTotal.setText(String.format("%.2f", finalTotal));
 
 
-        // Update lblAmount in PaymentCreateController if the reference is set
         if (paymentCreateController != null) {
             paymentCreateController.setTotalAmount(finalTotal);
         }
 
-        return finalTotal; // Return the final discounted total
+        return finalTotal;
     }
-
-//    public double getTotal() {
-//        // Call calculateTotal to get the net total
-//        return calculateTotal(0);
-//    }
-
 
     @FXML
     void onActioncomBoxMedicationId(ActionEvent event) throws SQLException {
-        // Get selected Medication ID from ComboBox
-        String selectedMedicationId = comBoxMedication_Id.getValue();
-//        System.out.println(selectedMedicationId);
 
+        String selectedMedicationId = comBoxMedication_Id.getValue();
 
         if (selectedMedicationId != null) {
 
             MedicationDTO medicationDTO = medicationBO.findById(selectedMedicationId);
-
 
             if (medicationDTO != null) {
 
@@ -416,302 +386,8 @@ public class OrderManageFormController {
         }
     }
 
-//    @FXML
-//    void onActionPlaceOrder(ActionEvent event) throws SQLException {
-//        // Check if cart is empty
-//        if (tblCart.getItems().isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please add items to cart..!").show();
-//            return;
-//        }
-//
-//        // Retrieve order ID, date, and customer from UI fields
-//        String orderId = txtOrder_Id.getText();
-//
-//
-//        String dateString = txtOrder_Date.getText();
-//        Date dateOfOrder = null;
-//        Date deliveryDate = null;
-//
-//        try {
-//            // Validate the order date format first
-//            if (!dateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
-//                new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd").show();
-//                return;
-//            }
-//            dateOfOrder = Date.valueOf(dateString);  // Will throw an exception if the format is incorrect
-//
-//            // Validate the delivery date format
-//            String deliveryDateString = txtDelivery_Date.getText();
-//            if (!deliveryDateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
-//                new Alert(Alert.AlertType.ERROR, "Invalid delivery date format! Use yyyy-MM-dd").show();
-//                return;
-//            }
-//            deliveryDate = Date.valueOf(deliveryDateString);  // Will throw an exception if the format is incorrect
-//
-//        } catch (IllegalArgumentException e) {
-//            new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd").show();
-//            return;
-//        }
-//        String customerName = txtCustomerName.getText();
-//        String phoneNo = txtPhone_NumberCustomer.getText(); // Assuming you have a field for phone number
-//
-//        // Check if the required fields are empty
-//        if (customerName.isEmpty() || phoneNo.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please enter Customer Name, Address, and Phone Number.").show();
-//            return;
-//        }
-//
-////        String deliveryDate = txtDelivery_Date.getText();
-////        if (deliveryDate.isEmpty()) {
-////            deliveryDate =orderModel.saveOrder();
-////        }
-//
-//        // Retrieve the customer ID if it's provided, else generate a new one
-//        String customerId = txtCustomer_Ids.getText();
-//        if (customerId.isEmpty()) {
-//            customerId = CustomerModel.generateCustomerId();  // Generate a new Customer ID
-//        }
-//
-//        // Create a CustomerDTO object to hold the customer data
-//        CustomerDTO customerDTO = new CustomerDTO(customerId, phoneNo, customerName, null);
-//
-//        // Begin database transaction
-//        Connection connection = DBConnection.getInstance().getConnection();
-//        try {
-//            connection.setAutoCommit(false); // Disable auto-commit for transaction control
-//
-//            // Check if the customer already exists
-//            if (!CustomerModel.isCustomerIdExists(customerId)) {
-//                // Save the customer data to the database if not already exists
-//                boolean isSaved = CustomerModel.addCustomer(customerDTO);
-//
-//                if (!isSaved) {
-//                    new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
-//                    connection.rollback(); // Rollback transaction if customer save fails
-//                    return;
-//                }
-//            }
-//
-//
-////            // Save the order information
-////            OrderDTO orderDTO = new OrderDTO(
-////                    orderId,               // Order ID
-////                    customerId,            // Customer ID
-////                    dateOfOrder,           // Order Date
-////                    deliveryDate, // Delivery Date (can be adjusted)
-////                    itemName,                   // Placeholder for Medication Name (to be populated later)// Placeholder for Medication ID (to be populated later)
-////                    new ArrayList<>()      // Placeholder for order details, will be populated below
-////            );
-//
-//
-//            // Save the order information
-//            OrderDTO orderDTO = new OrderDTO(
-//                    orderId,               // Order ID
-//                    customerId,            // Customer ID
-//                    deliveryDate,           // Order Date
-//                    new Date(System.currentTimeMillis()), // Delivery Date (can be adjusted)
-//                    "",                    // Placeholder for Medication Name (to be populated later)
-//                    "",                    // Placeholder for Medication ID (to be populated later)
-//                    new ArrayList<>()       // Placeholder for order details, will be populated below
-//            );
-//
-//            // Loop through the cart items to collect data for each item and add to order details array
-//            ArrayList<OderDetailsDTO> orderDetailsDTOS = new ArrayList<>();
-//            for (CartTM cartTM : tblCart.getItems()) {  // Assuming tblCart holds CartTM objects
-//                OderDetailsDTO orderDetailsDTO = new OderDetailsDTO(
-//                        orderId,                    // Order ID
-//                        cartTM.getMedication_Id(),   // Medication ID from the cart item
-//                        cartTM.getCart_qty(),        // Quantity from the cart item
-//                        cartTM.getUnit_price()    // Unit price from the cart item
-//                        // Medication Name from the cart item
-//                );
-//                orderDetailsDTOS.add(orderDetailsDTO);
-//            }
-//
-//            orderDTO.setOderDetailsDTO(orderDetailsDTOS);
-//
-//            // Insert the order into the database
-//            boolean isOrderSaved = CrudUtil.execute(
-//                    "insert into orders (Order_Id, Customer_Id, Order_Date) values (?, ?, ?)",
-//                    orderDTO.getOrder_Id(),
-//                    orderDTO.getCustomer_Id(),
-//                    orderDTO.getOrder_Date()
-//            );
-//
-//            if (isOrderSaved) {
-//                // Save order details
-//                boolean isOrderDetailListSaved = OrderDetailsModel.saveOrderDetailsList(orderDTO.getOrderDetailsDTO());
-//                if (isOrderDetailListSaved) {
-//                    connection.setAutoCommit(false);
-//                    connection.commit(); // Commit transaction if both order and details are saved
-//
-//                    new Alert(Alert.AlertType.INFORMATION, "Order saved successfully..!").show();
-//
-//
-//                    // Optionally, reset the form or refresh the page
-//                    // refreshPage(); // Implement this method if needed
-//                } else {
-//                    connection.setAutoCommit(false);// Rollback if order details save failed
-//                    connection.rollback();
-//                    new Alert(Alert.AlertType.ERROR, "Failed to save order details.").show();
-//                }
-//            } else {
-//               // Disable autocommit
-//                connection.setAutoCommit(false);
-//                connection.rollback(); // Rollback if order save failed
-//                new Alert(Alert.AlertType.ERROR, "Failed to save order.").show();
-//            }
-//        } catch (SQLException e) {
-//            connection.rollback();
-//            // Rollback in case of any error
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
-//        } finally {
-//            connection.setAutoCommit(true); // Reset auto-commit after operation
-//        }
-//    }
-/////////////////////////////////////
-
-
-//    @FXML
-//    void onActionPlaceOrder(ActionEvent event) throws SQLException {
-//        // Check if cart is empty
-//        if (tblCart.getItems().isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please add items to cart..!").show();
-//            return;
-//        }
-//
-//        // Retrieve order ID, date, and customer from UI fields
-//        String orderId = txtOrder_Id.getText();
-//        String dateString = txtOrder_Date.getText();
-//        String medicationName = txtMedication_Name.getText();
-//        String Medication_Id = comBoxMedication_Id.getValue();
-//        Date dateOfOrder = null;
-//        Date deliveryDate = null;
-//
-//        try {
-//            // Validate the order date format
-//            if (!dateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
-//                new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd").show();
-//                return;
-//            }
-//            dateOfOrder = Date.valueOf(dateString);  // Will throw an exception if the format is incorrect
-//
-//            // Validate the delivery date format
-//            String deliveryDateString = txtDelivery_Date.getText();
-//            if (!deliveryDateString.matches("\\d{4}-\\d{2}-\\d{2}")) {
-//                new Alert(Alert.AlertType.ERROR, "Invalid delivery date format! Use yyyy-MM-dd").show();
-//                return;
-//            }
-//            deliveryDate = Date.valueOf(deliveryDateString);  // Will throw an exception if the format is incorrect
-//
-//        } catch (IllegalArgumentException e) {
-//            new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd").show();
-//            return;
-//        }
-//
-//        // Check if the required fields are empty
-//        String customerName = txtCustomerName.getText();
-//        String phoneNo = txtPhone_NumberCustomer.getText();
-//        if (customerName.isEmpty() || phoneNo.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please enter Customer Name and Phone Number.").show();
-//            return;
-//        }
-//
-//        // Retrieve the customer ID if it's provided, else generate a new one
-//        String customerId = txtCustomer_Ids.getText();
-//        if (customerId.isEmpty()) {
-//            customerId = CustomerModel.generateCustomerId();  // Generate a new Customer ID
-//        }
-//
-//        // Create a CustomerDTO object to hold the customer data
-//        CustomerDTO customerDTO = new CustomerDTO(customerId, phoneNo, customerName, null);
-//
-//        // Begin database transaction
-//        Connection connection = DBConnection.getInstance().getConnection();
-//        try {
-//            connection.setAutoCommit(true); // Disable auto-commit for transaction control
-//
-//            // Check if the customer already exists, if not save the customer
-//            if (!CustomerModel.isCustomerIdExists(customerId)) {
-//                boolean isSaved = CustomerModel.addCustomer(customerDTO, connection); // Pass connection here
-//                if (!isSaved) {
-//                    new Alert(Alert.AlertType.ERROR, "Failed to save customer!").show();
-//                    connection.rollback(); // Rollback transaction if customer save fails
-//                    return;
-//                }
-//            }
-//
-//            // Check if all medications in the cart exist in the database
-//            for (CartTM cartTM : tblCart.getItems()) {
-//                if (!MedicationModel.isMedicationExists(cartTM.getMedication_Id())) {
-//                    new Alert(Alert.AlertType.ERROR, "Medication ID " + cartTM.getMedication_Id() + " does not exist!").show();
-//                    connection.rollback();
-//                    return;
-//                }
-//            }
-//
-//            // Create OrderDTO
-//            OrderDTO orderDTO = new OrderDTO(
-//                    orderId,               // Order ID
-//                    customerId,            // Customer ID
-//                    dateOfOrder,           // Order Date
-//                    deliveryDate,          // Delivery Date
-//                    medicationName,                    // Placeholder for Medication Name
-//                    Medication_Id,                    // Placeholder for Medication ID
-//                    new ArrayList<>()
-//            );
-//
-//            // Loop through the cart items to collect data for each item and add to order details
-//            ArrayList<OderDetailsDTO> orderDetailsDTOS = new ArrayList<>();
-//            for (CartTM cartTM : tblCart.getItems()) {
-//                OderDetailsDTO orderDetailsDTO = new OderDetailsDTO(
-//                        orderId,                    // Order ID
-//                        cartTM.getMedication_Id(),   // Medication ID
-//                        cartTM.getCart_qty(),        // Quantity
-//                        cartTM.getUnit_price()       // Unit price
-//                );
-//                orderDetailsDTOS.add(orderDetailsDTO);
-//            }
-//
-//            orderDTO.setOderDetailsDTO(orderDetailsDTOS);
-//
-//            // Insert the order into the database
-//            boolean isOrderSaved = OrderModel.saveOrder(orderDTO, connection); // Use transaction
-//
-//            if (isOrderSaved) {
-//                // Save order details
-//                boolean isOrderDetailListSaved = OrderDetailsModel.saveOrderDetailsList(orderDTO.getOrderDetailsDTO(), connection);
-//                if (isOrderDetailListSaved) {
-//                    connection.setAutoCommit(false);
-//
-//
-//                    new Alert(Alert.AlertType.INFORMATION, "Order saved successfully..!").show();
-//                } else {
-//                    connection.setAutoCommit(true);
-//                    //connection.rollback(); // Rollback if order details save failed
-//                    new Alert(Alert.AlertType.ERROR, "Failed to save order details.").show();
-//                }
-//            } else {
-//                connection.rollback(); // Rollback if order save failed
-//                new Alert(Alert.AlertType.ERROR, "Failed to save order.").show();
-//            }
-//
-//        } catch (SQLException e) {
-////            connection.rollback();  // Rollback in case of any error
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
-//        } finally {
-//            connection.setAutoCommit(true); // Reset auto-commit after operation
-//        }
-//    }
-////////These is the correct code
-
-//Still Now Running these code!!!!!
 @FXML
 void onActionPlaceOrder(ActionEvent event) throws SQLException {
-    // Check if cart is empty
-    // Check if cart is empty
     if (tblCart.getItems().isEmpty()) {
         new Alert(Alert.AlertType.ERROR, "Please add items to cart..!").show();
         return;
@@ -735,14 +411,14 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
             new Alert(Alert.AlertType.ERROR, "Invalid delivery date format! Use yyyy-MM-dd").show();
             return;
         }
-        deliveryDate = Date.valueOf(deliveryDateString);  // Will throw an exception if the format is incorrect
+        deliveryDate = Date.valueOf(deliveryDateString);
 
     } catch (IllegalArgumentException e) {
         new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd").show();
         return;
     }
 
-    // Check if the required fields are empty
+
     String customerName = txtCustomerName.getText();
     String phoneNo = txtPhone_NumberCustomer.getText();
     if (customerName.isEmpty() || phoneNo.isEmpty()) {
@@ -755,20 +431,6 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
         customerId = customerBO.generateNewId();
     }
 
-
-
-
-    /*String chechCustomerName = txtCustomerName.getText();
-    if (chechCustomerName == customerDAOImpl.getCustomerDetailsbyName(chechCustomerName)) {
-       txtCustomer_Ids.setText(customerBO.generateNewId());
-    }
-
-    String checkCustomerId = customerDAOImpl.getCustomerDetailsbyName(customerId);
-
-    if (checkCustomerId.isEmpty()) {
-        customerId = customerBO.generateNewId();
-        txtCustomer_Ids.setText(customerId);
-    }*/
 
     CustomerDTO customerDTO = new CustomerDTO(customerId, phoneNo, customerName, null);
 
@@ -800,40 +462,39 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
             }
         }
 
-        // Create OrderDTO
+
         OrderDTO orderDTO = new OrderDTO(
-                orderId,               // Order ID
-                customerId,            // Customer ID
-                dateOfOrder,           // Order Date
-                deliveryDate,          // Delivery Date
-                medicationName,        // Placeholder for Medication Name
-                medicationId,          // Placeholder for Medication ID
+                orderId,
+                customerId,
+                dateOfOrder,
+                deliveryDate,
+                medicationName,
+                medicationId,
                 new ArrayList<>()
         );
 
-        // Loop through the cart items to collect data for each item and add to order details
+
         ArrayList<OderDetailsDTO> orderDetailsDTOS = new ArrayList<>();
         for (CartTM cartTM : tblCart.getItems()) {
             OderDetailsDTO orderDetailsDTO = new OderDetailsDTO(
-                    orderId,                    // Order ID
-                    cartTM.getMedication_Id(),   // Medication ID
-                    cartTM.getCart_qty(),        // Quantity
-                    cartTM.getUnit_price()       // Unit price
+                    orderId,
+                    cartTM.getMedication_Id(),
+                    cartTM.getCart_qty(),
+                    cartTM.getUnit_price()
             );
             orderDetailsDTOS.add(orderDetailsDTO);
         }
 
         orderDTO.setOderDetailsDTO(orderDetailsDTOS);
 
-        // Insert the order into the database
-        boolean isOrderSaved = orderBO.save(orderDTO); // Use transaction
+        boolean isOrderSaved = orderBO.save(orderDTO);
 
         if (isOrderSaved) {
-            // Save order details
+
             System.out.println("hihihihihihih");
             boolean isOrderDetailListSaved = orderBO.saveOrderDetails(orderDTO.getOrderDetailsDTO());
             if (isOrderDetailListSaved) {
-                // Update stock levels for each medication in the cart
+
                 for (CartTM cartTM : tblCart.getItems()) {
                     int newStockLevel = medicationBO.getStockLevel(cartTM.getMedication_Id()) - cartTM.getCart_qty();
                     boolean isStockUpdated = medicationBO.updateStockLevel(cartTM.getMedication_Id(), newStockLevel, connection);
@@ -844,161 +505,28 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
                     }
                 }
 
-//                    connection.commit(); // Commit the transaction
                 new Alert(Alert.AlertType.INFORMATION, "Order saved successfully..!").show();
             } else {
-                connection.rollback(); // Rollback if order details save failed
+                connection.rollback();
                 new Alert(Alert.AlertType.ERROR, "Failed to save order details.").show();
             }
         } else {
-            connection.rollback(); // Rollback if order save failed
+            connection.rollback();
             new Alert(Alert.AlertType.ERROR, "Failed to save order.").show();
         }
 
     } catch (SQLException e) {
         System.out.println("number 0202");
 
-        connection.rollback();  // Rollback in case of any error
+        connection.rollback();
         new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).show();
     } finally {
         try {
-            connection.setAutoCommit(true); // Reset auto-commit to true
+            connection.setAutoCommit(true);
         } catch (SQLException e) {
-           // Handle if any exception occurs while setting autocommit to true
         }
     }
 }
-
-////Still Now running these code!!!
-
-
-
-//    @FXML
-//    void onActionPlaceOrder(ActionEvent event) {
-//        if (tblCart.getItems().isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "Please add items to the cart!").show();
-//            return;
-//        }
-//
-//        // Get the values from the fields
-//        String orderId = txtOrder_Id.getText().trim();
-//        String dateString = txtOrder_Date.getText().trim();
-//        String deliveryDateString = txtDelivery_Date.getText().trim();
-//        String customerId = txtCustomer_Ids.getText().trim();
-//        String customerName = txtCustomerName.getText().trim();
-//        String phoneNo = txtPhone_NumberCustomer.getText().trim();
-//
-//        // Validate input fields
-//        if (orderId.isEmpty() || dateString.isEmpty() || deliveryDateString.isEmpty() ||
-//                customerId.isEmpty() || customerName.isEmpty() || phoneNo.isEmpty()) {
-//            new Alert(Alert.AlertType.ERROR, "All fields must be filled out.").show();
-//            return;
-//        }
-//
-//        // Parse dates
-//        Date orderDate, deliveryDate;
-//        try {
-//            orderDate = Date.valueOf(dateString);
-//            deliveryDate = Date.valueOf(deliveryDateString);
-//        } catch (IllegalArgumentException e) {
-//            new Alert(Alert.AlertType.ERROR, "Invalid date format! Use yyyy-MM-dd.").show();
-//            return;
-//        }
-//
-//        Connection connection = null;
-//        try {
-//            // Get the database connection and start transaction
-//            connection = DBConnection.getInstance().getConnection();
-//            connection.setAutoCommit(false); // Start the transaction
-//
-//            // Check if customer exists or add a new customer
-//            CustomerDTO customerDTO = new CustomerDTO(customerId, phoneNo, customerName, null);
-//            boolean customerExists = CustomerModel.isCustomerIdExists(customerId);
-//
-//            if (!customerExists) {
-//                if (!CustomerModel.addCustomer(customerDTO)) {
-//                    connection.rollback(); // Rollback on failure
-//                    new Alert(Alert.AlertType.ERROR, "Failed to save customer data!").show();
-//                    return;
-//                }
-//            }
-//
-//            // Create order details from the cart
-//            ArrayList<OderDetailsDTO> orderDetailsList = new ArrayList<>();
-//            for (CartTM cartTM : tblCart.getItems()) {
-//                OderDetailsDTO orderDetailsDTO = new OderDetailsDTO(
-//                        orderId,
-//                        cartTM.getMedication_Id(),
-//                        cartTM.getCart_qty(),
-//                        cartTM.getUnit_price()
-//                );
-//                orderDetailsList.add(orderDetailsDTO);
-//            }
-//
-//            // Create the order DTO
-//            OrderDTO orderDTO = new OrderDTO(
-//                    orderId,
-//                    customerId,
-//                    deliveryDate,
-//                    orderDate,
-//                    null,       // Payment ID is not used here
-//                    null,       // Medication ID is optional
-//                    orderDetailsList
-//            );
-//
-//            // Save the order
-//            boolean isOrderSaved = OrderModel.saveOrder(orderDTO);
-//            if (!isOrderSaved) {
-//                connection.rollback(); // Rollback on failure
-//                new Alert(Alert.AlertType.ERROR, "Failed to save order.").show();
-//                return;
-//            }
-//
-//            // Save order details
-//            boolean areOrderDetailsSaved = OrderDetailsModel.saveOrderDetailsList(orderDetailsList);
-//            if (!areOrderDetailsSaved) {
-//                connection.rollback(); // Rollback on failure
-//                new Alert(Alert.AlertType.ERROR, "Failed to save order details.").show();
-//                return;
-//            }
-//
-//            // Commit the transaction
-//            connection.commit();
-//            new Alert(Alert.AlertType.INFORMATION, "Order placed successfully!").show();
-//
-//            clearFields(); // Reset form (ensure this method is implemented)
-//
-//        } catch (SQLException e) {
-//            // Handle SQL exceptions, rollback if needed
-//            if (connection != null) {
-//                try {
-//                    connection.rollback(); // Rollback transaction on error
-//                } catch (SQLException rollbackEx) {
-//                    rollbackEx.printStackTrace();
-//                }
-//            }
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage() +
-//                    "\nSQLState: " + e.getSQLState() +
-//                    "\nErrorCode: " + e.getErrorCode() +
-//                    "\nMessage: " + e.getMessage()).show(); // Show detailed error message
-//        } catch (Exception e) {
-//            // Catch any non-SQL exceptions
-//            e.printStackTrace();
-//            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
-//        } finally {
-//            if (connection != null) {
-//                try {
-//                    connection.setAutoCommit(true); // Restore auto-commit mode
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-//
-//
-
 
     @FXML
     void onActionReset(ActionEvent event) throws SQLException {
@@ -1018,17 +546,17 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
     public void navigateToForm(String fxmlPath) {
         try {
-            // Clear existing children
+
             contentAnchorPane.getChildren().clear();
 
-            // Load the FXML file dynamically
+
             AnchorPane load = FXMLLoader.load(getClass().getResource(fxmlPath));
 
-            // Bind the loaded form to the parent container (contentAnchorPane)
+
             load.prefWidthProperty().bind(contentAnchorPane.widthProperty());
             load.prefHeightProperty().bind(contentAnchorPane.heightProperty());
 
-            // Add the loaded form to the parent container
+
             contentAnchorPane.getChildren().add(load);
         } catch (IOException e) {
             e.printStackTrace();
@@ -1080,7 +608,6 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
             txtPayemnt.setText(nextPayment_Id);
 
         } catch (SQLException e) {
-            // Show error message if an exception occurs
             new Alert(Alert.AlertType.ERROR, "Failed to load data!").show();
             e.printStackTrace();
         }
@@ -1089,13 +616,9 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
     private void loadDiscountForCompany(String companyName) {
         try {
-            // Fetch discount from the database
             String discount = insuranceBO.getDiscountByCompanyName(companyName);
-
-            // Display the discount in the TextField
-            txtDiscount.setText(discount);  // Assuming txtDiscount is a TextField
+            txtDiscount.setText(discount);
         } catch (SQLException e) {
-            // Handle SQL exceptions
             new Alert(Alert.AlertType.ERROR, "Failed to load discount: " + e.getMessage()).show();
             e.printStackTrace();
         }
@@ -1103,25 +626,20 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
 
     private double getDiscountFromCompany() {
-        // Retrieve selected company name
         String companyName = getSelectedCompanyName();
 
-        // Initialize discount value
         double discount = 0.0;
 
         try {
-            // Fetch the discount from the InsuranceModel
             String discountStr = insuranceBO.getDiscountByCompanyName(companyName);
 
             try {
                 discount = Double.parseDouble(discountStr);// Assuming the discount is returned as a string
                 lblAfterInsuranceAmount.setText(String.valueOf(discount));
             } catch (NumberFormatException e) {
-                // Return 0 if parsing fails
                 System.out.println("Item selected");
             }
         } catch (SQLException e) {
-            // Handle SQL exceptions
             new Alert(Alert.AlertType.ERROR, "Failed to load discount: " + e.getMessage()).show();
             e.printStackTrace();
         }
@@ -1131,22 +649,15 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
     private void updateAmountAfterInsurance() {
         try {
-            // Get the total amount from lblTotal (convert it from String to double)
             double totalAmount = Double.parseDouble(lblTotal.getText());
 
-            // Get the discount value from txtDiscount (assuming it's a percentage)
             double discountPercentage = Double.parseDouble(txtDiscount.getText());
 
-            // Calculate the discount
             double discountAmount = totalAmount * (discountPercentage / 100);
 
-            // Calculate the final amount after applying the discount
             double finalAmount = totalAmount - discountAmount;
-
-            // Update the lblAfterInsuranceAmount with the final amount
             lblAfterInsuranceAmount.setText(String.valueOf(finalAmount));
         } catch (NumberFormatException e) {
-            // Handle possible errors in parsing numbers
             new Alert(Alert.AlertType.ERROR, "Invalid number format: " + e.getMessage()).show();
         }
     }
@@ -1157,7 +668,7 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
         if (comboxInsuranceCompanyName != null) {
             return comboxInsuranceCompanyName.getSelectionModel().getSelectedItem();
         } else {
-            return "";  // Return empty string if no company is selected
+            return "";
         }
     }
 
@@ -1165,15 +676,12 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
     @FXML
     void onActioncmbInsurance(ActionEvent event) throws SQLException {
         if (btnInsurance.isSelected()) {
-            // Set next Insurance ID in txtInsurance_Id
             String nextInsuranceId = insuranceBO.generateNewId();
             txtInsurance_Id.setText(nextInsuranceId);
 
-            // Get the total and discount values
             String totalText = lblTotal.getText();
             String discountText = txtDiscount.getText();
 
-            // Validate total and discount fields
             if (totalText == null || totalText.isEmpty()) {
                 new Alert(Alert.AlertType.WARNING, "Total amount is empty!").show();
                 return;
@@ -1184,7 +692,6 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
             }
 
             try {
-                // Parse discount percentage and total
                 if (discountText.endsWith("%")) {
                     discountText = discountText.substring(0, discountText.length() - 1); // Remove '%' character
                 }
@@ -1192,7 +699,7 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
                 double total = Double.parseDouble(totalText);
                 double discountPercentage = Double.parseDouble(discountText);
 
-                // Calculate the discounted amount
+
                 double discountedAmount = (total * discountPercentage) / 100;
                 System.out.println(discountedAmount);
                 lblAfterInsuranceAmount.setText(String.format("%.2f", discountedAmount));
@@ -1262,76 +769,59 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
     @FXML
     void onActioncmbInsuraceCompany(ActionEvent event) {
         try {
-            // Initialize the InsuranceModel and set the next Insurance ID
             insuranceDAOImpl = new InsuranceDAOImpl();
             String insuranceId =insuranceBO.generateNewId();
             txtInsurance_Id.setText(insuranceId);
 
-            // Get the selected company name from the ComboBox
             String selectedCompanyName = (String) comboxInsuranceCompanyName.getValue();
 
             if (selectedCompanyName != null) {
                 double discount = 0.0;
 
-                // Apply discount based on the selected company name
+
                 if (selectedCompanyName.equalsIgnoreCase("AIA")) {
-                    discount = 5.0; // 5% discount for AIA
+                    discount = 5.0;
                 } else if (selectedCompanyName.equalsIgnoreCase("OtherCompanyName")) {
-                    discount = 10.0; // Example: 10% for another company
+                    discount = 10.0;
                 }
 
-                // Update the discount amount label
                 lblAfterInsuranceAmount.setText(String.format("%.2f%%", discount));
 
-                // Calculate the total price before discount
+
                 double totalPriceBeforeDiscount = calculateTotal(0);
                 System.out.println("Total Price Before Discount: " + totalPriceBeforeDiscount);
 
-                // Validate the total price and discount values
+
                 if (totalPriceBeforeDiscount > 0 && discount > 0) {
-                    // Calculate the final amount after discount
+
                     double finalAmount = totalPriceBeforeDiscount - (totalPriceBeforeDiscount * (discount / 100));
                     System.out.println("Final Amount After Discount: " + finalAmount);
 
-                    // Update the Total label with the final amount
                     lblTotal.setText(String.format("%.2f", finalAmount));
                     lblTotaFinalAmount.setText(lblTotal.getText());
                 } else {
                     new Alert(Alert.AlertType.WARNING, "Total price or discount is invalid!").show();
                 }
             } else {
-                // Show a warning if no company is selected
                 new Alert(Alert.AlertType.WARNING, "Please select a Company Name!").show();
             }
         } catch (SQLException e) {
-            // Handle any SQL exceptions
             new Alert(Alert.AlertType.ERROR, "Error while fetching Insurance ID: " + e.getMessage()).show();
             e.printStackTrace();
         } catch (Exception e) {
-            // Handle any unexpected exceptions
             new Alert(Alert.AlertType.ERROR, "An unexpected error occurred: " + e.getMessage()).show();
             e.printStackTrace();
         }
     }
 
-
-
-    // Method to get the total price before applying the discount (this can vary based on your app)
     private double getTotalPriceBeforeDiscount() {
-        // Replace with your actual method to get the total price before discount
-        // For example, from a table or from user input
-        return 0.0; // Example value; replace with actual calculation
+        return 0.0;
     }
-
 
     @FXML
     void onActionCash(ActionEvent event) {
-        // Check if the checkbox is selected
         if (checkCash.isSelected()) {
-            // Assuming calculateTotal() returns the net total value
-            double netTotal = calculateTotal(0);  // Get the calculated total
-
-            // Set the calculated total in the label, formatted to 2 decimal places
+            double netTotal = calculateTotal(0);
             lblTotaFinalAmount.setText(String.format("%.2f", netTotal));
         }
     }
@@ -1339,19 +829,12 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
     @FXML
     void onActionCard(ActionEvent event) {
         if (checkCard.isSelected()) {
-            // Get the net total using the calculateTotal method (no arguments if not required)
-            double netTotal = calculateTotal(0);  // Call the method without any arguments if not needed
-
-            // Ensure netTotal is not zero or negative before applying the discount
+            double netTotal = calculateTotal(0);
             if (netTotal > 0) {
-                // Apply 2% discount
-                double discountedTotal = netTotal - (netTotal * 0.02);  // 2% discount
-
-                // Set the final discounted amount in lblTotalFinalAmount
+                double discountedTotal = netTotal - (netTotal * 0.02);
                 lblTotaFinalAmount.setText(String.format("%.2f", discountedTotal));
             } else {
-                // Handle the case if the total is zero or invalid
-                lblTotaFinalAmount.setText("0.00");  // or display an appropriate message
+                lblTotaFinalAmount.setText("0.00");
             }
         }
     }
@@ -1388,7 +871,7 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
         String deliveryDate = txtDelivery_Date.getText();
         String deliveryLocation = lblDeliveryLocation.getText();
         String deliveryPhoneNumber = txtPhone_NumberCustomer.getText();
-        String recipientEmail = "recipient@example.com"; // Replace with actual recipient email
+        String recipientEmail = "recipient@example.com";
 
         try {
             sendEmail(recipientEmail, orderId, customerId, deliveryDate, deliveryLocation, deliveryPhoneNumber);
@@ -1442,25 +925,20 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
         return null;
     }
 
+    public void onActionOptionalPhoneNumber(ActionEvent actionEvent) {
+        txtPhone_NumberCustomer.setText("0771111111");
+        txtPhone_NumberCustomer.setStyle("-fx-text-fill: transparent;");
+    }
 
     public void onActionGenarateReport(ActionEvent actionEvent) {
         try {
-            // Load the JRXML file
             InputStream reportStream = getClass().getResourceAsStream("/report/Order_Report.jrxml");
             if (reportStream == null) {
                 throw new JRException("Report file not found!");
             }
-
-            // Compile the JRXML file
             JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
-
-            // Get database connection
             Connection connection = DBConnection.getInstance().getConnection();
-
-            // Fill the report
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, connection);
-
-            // Display the report without save contributors
             JasperViewer.viewReport(jasperPrint, false);
 
         } catch (JRException e) {
@@ -1471,30 +949,24 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
             e.printStackTrace();
         }
     }
-
-
     public void onActionSelectCustomerDetailsByName(ActionEvent actionEvent) throws SQLException {
         String customerName = txtCustomerName.getText();
-        String customerDetails = customerBO.getCustomerDetailsbyName(customerName); // Fetch combined details
-
-
-
+        String customerDetails = customerBO.getCustomerDetailsbyName(customerName);
         try {
             if (customerDetails != null && !customerDetails.isEmpty()) {
                 String[] details = customerDetails.split(", ");
 
-                if (details.length < 2) { // Prevents ArrayIndexOutOfBoundsException
+                if (details.length < 2) {
                     txtCustomer_Ids.setText(customerBO.generateNewId());
                     return;
                 }
-                String customerId = details[0].split(": ")[1];  // Extract Customer ID
-                String customerPhoneNum = details[1].split(": ")[1];  // Extract Phone Number
+                String customerId = details[0].split(": ")[1];
+                String customerPhoneNum = details[1].split(": ")[1];
 
                 txtCustomer_Ids.setText(customerId);
                 txtPhone_NumberCustomer.setText(customerPhoneNum);
             } else {
                 txtCustomer_Ids.setText(customerBO.generateNewId());
-
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No customer details found for this name. Please enter your details!");
                 alert.show();
             }
@@ -1509,29 +981,18 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
     public void onActionCustomername(ActionEvent actionEvent) throws SQLException {
         try {
-            // Get the customer name from the input field
             String inputCustomerName = txtCustomerName.getText();
-
-            // Check if the customer name exists in the database
             boolean customerExists = customerDAOImpl.getCustomerDetailsbyName(inputCustomerName) != null;
-
-            // If the customer does not exist, generate a new customer ID
             if (!customerExists) {
                 String newCustomerId = customerBO.generateNewId();
                 txtCustomer_Ids.setText(newCustomerId);
             } else {
-                // Optionally, handle the case where the customer already exists
                txtCustomer_Ids.setText(customerBO.generateNewId());
             }
         } catch (SQLException e) {
-            // Handle SQL exceptions
             e.printStackTrace();
             System.out.println("Error while checking customer name: " + e.getMessage());
         }
     }
 
-    public void onActionOptionalPhoneNumber(ActionEvent actionEvent) {
-        txtPhone_NumberCustomer.setText("0771111111");
-        txtPhone_NumberCustomer.setStyle("-fx-text-fill: transparent;");
-    }
 }
