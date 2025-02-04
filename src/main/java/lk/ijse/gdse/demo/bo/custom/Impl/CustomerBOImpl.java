@@ -81,7 +81,14 @@ public class CustomerBOImpl implements CustomerBO {
                     customerDTO.getAddress()
             );*/
 
-            boolean isCustomerSaved = customerDAO.add(new Customer(customerDTO.getCustomer_Id(), customerDTO.getPhone_no(), customerDTO.getName(), customerDTO.getAddress()));
+           /* boolean isCustomerSaved = customerDAO.add(new Customer(customerDTO.getCustomer_Id(), customerDTO.getPhone_no(), customerDTO.getName(), customerDTO.getAddress()));
+*/
+            boolean isCustomerSaved = customerDAO.add(new Customer(
+                    customerDTO.getCustomer_Id(),
+                    (customerDTO.getPhone_no() == null || customerDTO.getPhone_no().isEmpty()) ? null : customerDTO.getPhone_no(),
+                    customerDTO.getName(),
+                    customerDTO.getAddress()
+            ));
 
             // If the customer is saved successfully
             if (isCustomerSaved) {

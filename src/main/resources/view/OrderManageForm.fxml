@@ -44,7 +44,7 @@
                         <Font name="Candara Bold Italic" size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtCustomer_Ids" onAction="#onActionCustomerId" promptText="Customer_Id" />
+                  <TextField fx:id="txtCustomer_Ids" onAction="#onActionCustomerId" prefHeight="26.0" prefWidth="167.0" promptText="Customer_PhoneNo" />
                </children>
             </HBox>
             <TextField fx:id="txtPhone_NumberCustomer" onAction="#onActionCustomer_phoneNo" prefHeight="26.0" prefWidth="167.0" promptText="Customer_PhoneNo" />
@@ -183,5 +183,6 @@
          </font>
       </Label>
       <Button fx:id="btnEmail" layoutX="581.0" layoutY="400.0" mnemonicParsing="false" onAction="#onActionSendEmail" prefHeight="30.0" prefWidth="102.0" style="-fx-background-color: #1B1464;" text="Send Email" textFill="#faf7f7" />
+      <CheckBox layoutX="575.0" layoutY="102.0" mnemonicParsing="false" onAction="#onActionOptionalPhoneNumber" prefHeight="18.0" prefWidth="119.0" text="Optional PhoNO" />
    </children>
 </AnchorPane>

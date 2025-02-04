@@ -2,20 +2,12 @@ package lk.ijse.gdse.demo.dao.custom.Impl;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 import lk.ijse.gdse.demo.dao.SQLUtil;
 import lk.ijse.gdse.demo.dao.custom.DeliveryDAO;
 import lk.ijse.gdse.demo.db.DBConnection;
 import lk.ijse.gdse.demo.dto.DeliveryDTO;
 import lk.ijse.gdse.demo.entity.Delivery;
-import lk.ijse.gdse.demo.util.CrudUtil;
-
-import java.io.IOException;
 import java.sql.*;
 
 public class DeliveryDAOImpl implements DeliveryDAO {
@@ -36,7 +28,7 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 
 
     public void insertDelivery(DeliveryDTO deliveryDTO) throws SQLException {
-        String query = "insert into Delivery(Delivery_Id,Order_Id,Delivery_date,Location,CustomerPhone_No) values (?,?,?,?,?)";
+       /* String query = "insert into Delivery(Delivery_Id,Order_Id,Delivery_date,Location,CustomerPhone_No) values (?,?,?,?,?)";
 
         try(Connection connection = DBConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -47,7 +39,15 @@ public class DeliveryDAOImpl implements DeliveryDAO {
             preparedStatement.setString(5,deliveryDTO.getCustomer_PhoneNo());
 
             preparedStatement.executeUpdate();
-        }
+        }*/
+
+        SQLUtil.execute("INSERT INTO Delivery (Delivery_Id, Order_Id, Delivery_date, Location, CustomerPhone_No) VALUES (?, ?, ?, ?, ?)",
+                deliveryDTO.getDelivery_Id(),
+                deliveryDTO.getOrder_Id(),
+                deliveryDTO.getDelivery_Date(),
+                deliveryDTO.getLocation(),
+                deliveryDTO.getCustomer_PhoneNo()
+        );
     }
 
 

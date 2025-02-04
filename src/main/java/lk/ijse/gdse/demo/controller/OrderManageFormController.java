@@ -220,6 +220,8 @@ public class OrderManageFormController {
             if (customerName != null && customerId != null) {
                 txtCustomerName.setText(customerName);
                 txtCustomer_Ids.setText(customerId);
+            } else if (customerId == null) {
+                txtCustomer_Ids.setText(customerBO.generateNewId());
             } else {
                 txtCustomer_Ids.setText(customerDAOImpl.getNextCustomer_Id());
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No customer found for this phone number.Please Enter Name!!");
@@ -752,6 +754,22 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
     if (customerId.isEmpty()) {
         customerId = customerBO.generateNewId();
     }
+
+
+
+
+    /*String chechCustomerName = txtCustomerName.getText();
+    if (chechCustomerName == customerDAOImpl.getCustomerDetailsbyName(chechCustomerName)) {
+       txtCustomer_Ids.setText(customerBO.generateNewId());
+    }
+
+    String checkCustomerId = customerDAOImpl.getCustomerDetailsbyName(customerId);
+
+    if (checkCustomerId.isEmpty()) {
+        customerId = customerBO.generateNewId();
+        txtCustomer_Ids.setText(customerId);
+    }*/
+
     CustomerDTO customerDTO = new CustomerDTO(customerId, phoneNo, customerName, null);
 
     Connection connection = DBConnection.getInstance().getConnection();
@@ -1459,16 +1477,16 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
         String customerName = txtCustomerName.getText();
         String customerDetails = customerBO.getCustomerDetailsbyName(customerName); // Fetch combined details
 
+
+
         try {
             if (customerDetails != null && !customerDetails.isEmpty()) {
                 String[] details = customerDetails.split(", ");
 
                 if (details.length < 2) { // Prevents ArrayIndexOutOfBoundsException
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "Customer details are incomplete or corrupted!");
-                    alert.show();
+                    txtCustomer_Ids.setText(customerBO.generateNewId());
                     return;
                 }
-
                 String customerId = details[0].split(": ")[1];  // Extract Customer ID
                 String customerPhoneNum = details[1].split(": ")[1];  // Extract Phone Number
 
@@ -1476,6 +1494,7 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
                 txtPhone_NumberCustomer.setText(customerPhoneNum);
             } else {
                 txtCustomer_Ids.setText(customerBO.generateNewId());
+
                 Alert alert = new Alert(Alert.AlertType.WARNING, "No customer details found for this name. Please enter your details!");
                 alert.show();
             }
@@ -1488,4 +1507,31 @@ void onActionPlaceOrder(ActionEvent event) throws SQLException {
 
     }
 
+    public void onActionCustomername(ActionEvent actionEvent) throws SQLException {
+        try {
+            // Get the customer name from the input field
+            String inputCustomerName = txtCustomerName.getText();
+
+            // Check if the customer name exists in the database
+            boolean customerExists = customerDAOImpl.getCustomerDetailsbyName(inputCustomerName) != null;
+
+            // If the customer does not exist, generate a new customer ID
+            if (!customerExists) {
+                String newCustomerId = customerBO.generateNewId();
+                txtCustomer_Ids.setText(newCustomerId);
+            } else {
+                // Optionally, handle the case where the customer already exists
+               txtCustomer_Ids.setText(customerBO.generateNewId());
+            }
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace();
+            System.out.println("Error while checking customer name: " + e.getMessage());
+        }
+    }
+
+    public void onActionOptionalPhoneNumber(ActionEvent actionEvent) {
+        txtPhone_NumberCustomer.setText("0771111111");
+        txtPhone_NumberCustomer.setStyle("-fx-text-fill: transparent;");
+    }
 }
