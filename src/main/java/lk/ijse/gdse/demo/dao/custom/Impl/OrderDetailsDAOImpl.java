@@ -83,25 +83,21 @@ public static boolean saveOrderDetailsList(ArrayList<OderDetailsDTO> orderDetail
         for (OderDetailsDTO orderDetails : orderDetailsList) {
             pstm.setString(1, orderDetails.getOrder_Id());
             pstm.setString(2, orderDetails.getMedication_Id());
-            pstm.setInt(3, orderDetails.getQuantity()); // Ensure quantity is set correctly
-            pstm.setDouble(4, orderDetails.getPrice());  // Assuming the price is being stored correctly
+            pstm.setInt(3, orderDetails.getQuantity());
+            pstm.setDouble(4, orderDetails.getPrice());
             pstm.addBatch();
         }
 
-        pstm.executeBatch(); // Execute all inserts in a batch
-        return true; // Return true if batch executes successfully
+        pstm.executeBatch();
+        return true;
     } catch (SQLException e) {
         e.printStackTrace();
-        return false; // Return false if an exception occurs
+        return false;
     }
 }
 
 
-
-
-    // Save individual order detail into the database
     private static boolean saveOrderDetail(OderDetailsDTO orderDetailsDTO, Connection connection) throws SQLException {
-        // Executes an insert query to save the order detail into the database
         return CrudUtil.execute(
                 String.valueOf(connection),
                 "INSERT INTO OrderDetails (Order_Id, Medication_Id, Quantity, Price) VALUES (?,?,?,?)",
@@ -122,19 +118,16 @@ public static boolean saveOrderDetailsList(ArrayList<OderDetailsDTO> orderDetail
     }
 
 
-    // Method to get the total price from the OrderDetails table
+
     public double getTotalPrice() throws SQLException {
-        // SQL query to calculate the total price
         String query = "SELECT SUM(quantity * Price) FROM OrderDetails";
 
-        // Execute the query using the CrudUtil class
         ResultSet resultSet = CrudUtil.execute(query);
 
-        // Check if the resultSet has data and return the sum
         if (resultSet.next()) {
-            return resultSet.getDouble(1);  // Get the first column, which is the total price
+            return resultSet.getDouble(1);
         } else {
-            return 0.0;  // Return 0.0 if no data is found
+            return 0.0;
         }
     }
 
@@ -143,32 +136,27 @@ public static boolean saveOrderDetailsList(ArrayList<OderDetailsDTO> orderDetail
         String updateStockLevelSql = "UPDATE Medication SET Stock_Level = Stock_Level - ? WHERE Medication_Id = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection()) {
-            // Disable auto-commit to manage the transaction manually
             connection.setAutoCommit(false);
 
             try (PreparedStatement pst = connection.prepareStatement(sql);
                  PreparedStatement updatePst = connection.prepareStatement(updateStockLevelSql)) {
 
-                // Insert order details
                 pst.setString(1, orderDetails.getOrder_Id());
                 pst.setString(2, orderDetails.getMedication_Id());
                 pst.setInt(3, orderDetails.getQuantity());
                 pst.setDouble(4, orderDetails.getPrice());
                 pst.executeUpdate();
 
-                // Update stock level
+
                 updatePst.setInt(1, orderDetails.getQuantity());
                 updatePst.setString(2, orderDetails.getMedication_Id());
                 updatePst.executeUpdate();
 
-                // Commit the transaction
                 connection.commit();
             } catch (SQLException e) {
-                // Rollback in case of an error
                 connection.rollback();
                 throw e;
             } finally {
-                // Ensure auto-commit is restored to its original state
                 connection.setAutoCommit(true);
             }
         } catch (SQLException e) {
