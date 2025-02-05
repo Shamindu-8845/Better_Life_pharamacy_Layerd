@@ -17,24 +17,6 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public  ObservableList<Suppliers> getAll() throws SQLException {
-        /*List<Suppliers> suppliersList = new ArrayList<>();
-        String query = "SELECT Sup_Id, Name, Phone_No FROM Suppliers";
-
-        try (Connection connection = DBConnection.getInstance().getConnection();
-             Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                String supId = rs.getString("Sup_Id");
-                String name = rs.getString("Name");
-                String phoneNo = rs.getString("Phone_No");
-
-                suppliersList.add(new Suppliers(supId, name, phoneNo));
-            }
-        }
-
-        return FXCollections.observableArrayList(suppliersList); // Convert List to ObservableList*/
-
         ResultSet resultSet = SQLUtil.execute("SELECT Sup_Id, Name, Phone_No FROM Suppliers");
         List<Suppliers> suppliers = new ArrayList<>();
         while (resultSet.next()) {
@@ -58,7 +40,6 @@ public class SupplierDAOImpl implements SupplierDAO {
         );
     }
 
-    // Method to check if supplier ID exists
     public  boolean isSupplierIdExists(String supId) throws SQLException {
         String query = "SELECT COUNT(*) FROM suppliers WHERE Sup_Id = ?";
         DBConnection dbConnection = DBConnection.getInstance();
@@ -73,8 +54,7 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
 
     public boolean delete(String Id) throws SQLException {
-        /*return CrudUtil.execute("delete from Suppliers where Sup_Id=?", Id);*/
-       return SQLUtil.execute("delete from Suppliers where Sup_Id=?", Id);
+        return SQLUtil.execute("delete from Suppliers where Sup_Id=?", Id);
     }
 
     public ArrayList<String> getAllCustomerIds() throws SQLException {
@@ -90,11 +70,6 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
     @Override
     public boolean add(Suppliers supplierDTO) throws SQLException {
-        /*return CrudUtil.execute("insert into suppliers (Sup_Id, Name, Phone_No) VALUES (?,?,?)",
-                supplierDTO.getSup_Id(),
-                supplierDTO.getName(),
-                supplierDTO.getPhoneNo()
-        );*/
        return SQLUtil.execute("insert into suppliers (Sup_Id, Name, Phone_No) VALUES (?,?,?)",
                 supplierDTO.getSup_Id(),
                 supplierDTO.getName(),
@@ -103,12 +78,6 @@ public class SupplierDAOImpl implements SupplierDAO {
     }
     @Override
     public boolean update(Suppliers supplierDTO) throws SQLException {
-        /*return CrudUtil.execute(
-                "update Suppliers set  Name=?, Phone_NO=? where Sup_Id=?",
-                supplierDTO.getName(),
-                supplierDTO.getPhone_No(),
-                supplierDTO.getSup_Id()
-        );*/
 
        return SQLUtil.execute("update Suppliers set  Name=?, Phone_NO=? where Sup_Id=?",
                 supplierDTO.getName(),
@@ -131,11 +100,11 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     public int getTotalSuppliers() throws SQLException {
         String query = "SELECT COUNT(Sup_Id) FROM Suppliers";
-        ResultSet resultSet = CrudUtil.execute(query); // Returns ResultSet
+        ResultSet resultSet = CrudUtil.execute(query);
         if (resultSet.next()) {
-            return resultSet.getInt(1); // Get the count from the first column (index 1)
+            return resultSet.getInt(1);
         } else {
-            return 0; // If no data is found, return 0
+            return 0;
         }
     }
 }

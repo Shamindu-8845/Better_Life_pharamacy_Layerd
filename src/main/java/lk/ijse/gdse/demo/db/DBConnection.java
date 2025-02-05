@@ -57,7 +57,6 @@ public class DBConnection {
     private Connection connection;
     private static DBConnection dbConnection;
 
-    // Private constructor to enforce singleton pattern
     private DBConnection() throws SQLException {
         try {
             Class.forName(DRIVER);
@@ -67,7 +66,7 @@ public class DBConnection {
         }
     }
 
-    // Public method to obtain the singleton instance
+
     public static synchronized DBConnection getInstance() throws SQLException {
         if (dbConnection == null || dbConnection.isConnectionClosed()) {
             dbConnection = new DBConnection();
@@ -75,17 +74,16 @@ public class DBConnection {
         return dbConnection;
     }
 
-    // Instance method to get the connection
+
     public Connection getConnection() {
         return connection;
     }
 
-    // Method to check if the connection is closed
+
     public boolean isConnectionClosed() throws SQLException {
         return connection == null || connection.isClosed();
     }
 
-    // Method to close the connection (optional for application shutdown)
     public void closeConnection() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
