@@ -9,7 +9,7 @@ import lk.ijse.gdse.demo.dto.CustomerDTO;
 import lk.ijse.gdse.demo.entity.Customer;
 import lk.ijse.gdse.demo.util.CrudUtil;
 
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,21 +28,6 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return customerDto;
 
-        /*String query = "SELECT * FROM customer";
-        ResultSet resultSet = CrudUtil.<ResultSet>execute(query);  // This returns ResultSet
-        ObservableList<Customer> customerList = FXCollections.observableArrayList();
-
-        while (resultSet.next()) {
-            Customer customerDTO = new Customer(
-                    resultSet.getString("Customer_Id"),
-                    resultSet.getString("Phone_no"),
-                    resultSet.getString("Name"),
-                    resultSet.getString("Address")
-            );
-            customerList.add(customerDTO);
-        }
-
-        return customerList;*/
     }
 
     public CustomerDTO findById(String selectedCusId) throws SQLException {
@@ -50,10 +35,10 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         if (rst.next()) {
             return new CustomerDTO(
-                    rst.getString(1),  // Customer_Id
-                    rst.getString(2),  // Phone_no
-                    rst.getString(3),  // Name
-                    rst.getString(4)  //Address
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4)
             );
         }
         return null;
@@ -67,20 +52,11 @@ public class CustomerDAOImpl implements CustomerDAO {
                customerDTO.getPhone_no(),
                customerDTO.getAddress());
 
-        /*return CrudUtil.execute(
-                "INSERT INTO Customer (Customer_Id, Name, Phone_no, Address) VALUES (?, ?, ?, ?)",
-                customerDTO.getCustomer_Id(),
-                customerDTO.getName(),
-                customerDTO.getPhone_no(),
-                customerDTO.getAddress()
-        );*/
     }
 
     public  ArrayList<String> getAllCustomerIds() throws SQLException {
         ResultSet rst = CrudUtil.execute("select customer_id from customer");
-
         ArrayList<String> customerIds = new ArrayList<>();
-
         while (rst.next()) {
             customerIds.add(rst.getString(1));
         }
@@ -90,15 +66,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean update(Customer customerDTO) throws SQLException {
-       /* return CrudUtil.execute(
-                "UPDATE Customer SET Name=?, Phone_no=?, Address=? WHERE Customer_Id=?",
-                customerDTO.getName(),
-                customerDTO.getPhone_no(),
-                customerDTO.getAddress(),
-                customerDTO.getCustomer_Id()
-        );*/
-
-      return SQLUtil.execute("UPDATE Customer SET Name=?, Phone_no=?, Address=? WHERE Customer_Id=?",
+        return SQLUtil.execute("UPDATE Customer SET Name=?, Phone_no=?, Address=? WHERE Customer_Id=?",
                 customerDTO.getName(),
                 customerDTO.getPhone_no(),
                 customerDTO.getAddress(),
@@ -107,15 +75,9 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean delete(String Id) throws SQLException {
-        /*return CrudUtil.execute(
-                "DELETE FROM Customer WHERE Customer_Id=?",
-                Id
-        );*/
-
-       return SQLUtil.execute("DELETE FROM Customer WHERE Customer_Id=?",Id);
+      return SQLUtil.execute("DELETE FROM Customer WHERE Customer_Id=?",Id);
     }
 
-    // Method to get the customer name by CustomerId
     public  String getCustomerNameByCustomerId(String customerId) throws SQLException {
         String sql = "SELECT Name FROM customer WHERE Customer_Id = ?";
 
@@ -130,28 +92,18 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     public  String getCustomerPhoneByCustomerId(String customerId) throws SQLException {
-        String sql = "SELECT Phone_No FROM customer WHERE Customer_Id = ?";
-
-        try (PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pst.setString(1, customerId);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return rs.getString("Phone_No");
-            }
+        ResultSet rs = SQLUtil.execute("SELECT Phone_no FROM customer WHERE Customer_Id = ?",customerId);
+        if (rs.next()) {
+            return rs.getString("Phone_No");
         }
         return null;
     }
 
-    // Method to get the customer ID by phone number
     public  String getCustomerIdByPhoneNo(String phoneNo) throws SQLException {
-        String sql = "SELECT Customer_Id FROM customer WHERE Phone_No = ?";
+       ResultSet rs =  SQLUtil.execute("SELECT Customer_Id FROM customer WHERE Phone_No = ?",phoneNo);
 
-        try (PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            pst.setString(1, phoneNo);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return rs.getString("Customer_Id");
-            }
+        if (rs.next()) {
+            return rs.getString("Customer_Id");
         }
         return null;
     }

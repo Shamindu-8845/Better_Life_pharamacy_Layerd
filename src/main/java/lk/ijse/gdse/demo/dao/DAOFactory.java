@@ -15,7 +15,7 @@ public class DAOFactory {
         CUSTOMER,DELIVERY,EMPLOYEE,INSURANCE,INVENTORY,MEDICATION,ORDER,ORDERDETAILS,PAYMENT,SALARY,SUPPLIER,USER
     }
 
-    public static CrudDAO getDAO(DAOType daoType) {
+    public  CrudDAO getDAO(DAOType daoType) {
         switch (daoType) {
             case CUSTOMER:
                 return new CustomerDAOImpl();

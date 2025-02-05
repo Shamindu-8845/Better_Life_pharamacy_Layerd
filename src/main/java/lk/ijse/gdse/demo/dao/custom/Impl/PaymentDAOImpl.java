@@ -61,7 +61,7 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
     @Override
     public boolean add(Payment paymentDTO) throws SQLException {
-       return SQLUtil.execute("INSERT INTO payments (Payment_Id, Amount, Date, Status, Payment_Type, Insurance_Id) VALUES (?, ?, ?, ?, ?, ?)",
+        return SQLUtil.execute("INSERT INTO payment (Payment_Id, Amount, `Date`, Status, Payment_Type, Insurance_Id) VALUES (?, ?, ?, ?, ?, ?)",
                 paymentDTO.getPayment_Id(),
                 paymentDTO.getAmount(),
                 paymentDTO.getDate(),
