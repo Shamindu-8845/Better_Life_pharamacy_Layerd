@@ -225,11 +225,10 @@ public class HomeDeliveryManageFormController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            // Close the current window if needed
             ((Stage)content.getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to load FXML at path: " + fxmlPath); // Log the FXML path
+            System.out.println("Failed to load FXML at path: " + fxmlPath);
             new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
         }
     }

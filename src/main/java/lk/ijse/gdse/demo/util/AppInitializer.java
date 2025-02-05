@@ -12,7 +12,7 @@ import java.sql.Connection;
 public class AppInitializer extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        // Corrected the path to the FXML file
+
         Parent root = FXMLLoader.load(getClass().getResource("/view/AdminForm.fxml"));
 
         Scene scene = new Scene(root);
@@ -20,7 +20,12 @@ public class AppInitializer extends Application {
         stage.setTitle("Pharmacy System");
         stage.show();
 
-        // Database connection setup
+        /*please use password and username to log into the system
+        * username - admin
+        * password - 1234
+        * */
+
+
         Connection connection = null;
         try {
             connection = DBConnection.getInstance().getConnection();
