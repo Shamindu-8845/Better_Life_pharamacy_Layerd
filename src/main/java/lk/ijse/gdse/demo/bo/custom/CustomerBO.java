@@ -10,7 +10,6 @@ public interface CustomerBO extends SuperBO {
 
     int getTotalCustomers() throws SQLException;
 
-    // Method to get the customer ID by phone number
     String getCustomerIdByPhoneNo(String phoneNo) throws SQLException;
 
     String getCustomerNameByPhoneNo(String phoneNo) throws SQLException;

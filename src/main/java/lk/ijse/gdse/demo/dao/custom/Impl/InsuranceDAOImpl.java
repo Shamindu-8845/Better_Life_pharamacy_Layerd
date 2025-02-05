@@ -88,15 +88,12 @@ public class InsuranceDAOImpl implements InsuranceDAO {
         // Execute SQL query to get all company names
         ResultSet rst = CrudUtil.execute("SELECT Company_Name FROM insurance");
 
-        // Create an ArrayList to store the company names
         ArrayList<String> companyNames = new ArrayList<>();
 
-        // Iterate through the result set and add each company name to the list
         while (rst.next()) {
             companyNames.add(rst.getString(1));
         }
 
-        // Return the list of company names
         return companyNames;
     }
 
@@ -104,39 +101,22 @@ public class InsuranceDAOImpl implements InsuranceDAO {
     public  String getDiscountByCompanyName(String companyName) throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT Discount FROM insurance WHERE Company_Name = ?", companyName);
         if (rst.next()) {
-            int discount = rst.getInt("Discount"); // Assuming the `Discount` column is now an `INT`
-            return discount + "%"; // Return the discount as a percentage string
+            int discount = rst.getInt("Discount");
+            return discount + "%";
         }
-        return "0%"; // Return "0%" if no discount is found
+        return "0%";
     }
 
-
-
-//    public boolean updateInsurance(InsuranceDTO insurance) {
-//        return true;
-//    }
 
     @Override
     public boolean delete(String Id) {
         return true;
     }
 
-//    public boolean addInsurance(InsuranceDTO insurance) {
-//        return true;
-//    }
+
     @Override
     public  boolean update(Insurance insurance) throws SQLException {
-        /*// Update query to modify the existing insurance record
-        String sql = "UPDATE insurance SET Customer_Id = ?, Company_Name = ?, Discount = ? WHERE Insurance_Id = ?";
-        return CrudUtil.execute(
-                sql,
-                insurance.getCustomer_Id(),
-                insurance.getCompany_Name(),
-                insurance.getDiscount(),
-                insurance.getInsurance_Id()
-        );*/
-
-       return SQLUtil.execute("UPDATE insurance SET Customer_Id = ?, Company_Name = ?, Discount = ? WHERE Insurance_Id = ?",
+     return SQLUtil.execute("UPDATE insurance SET Customer_Id = ?, Company_Name = ?, Discount = ? WHERE Insurance_Id = ?",
                 insurance.getCustomer_Id(),
                 insurance.getCompany_Name(),
                 insurance.getDiscount(),
@@ -144,17 +124,7 @@ public class InsuranceDAOImpl implements InsuranceDAO {
     }
     @Override
     public  boolean add(Insurance insurance) throws SQLException {
-        /*// Insert query to add a new insurance record
-        String sql = "INSERT INTO insurance (Insurance_Id, Customer_Id, Company_Name, Discount) VALUES (?, ?, ?, ?)";
-        return CrudUtil.execute(
-                sql,
-                insurance.getInsurance_Id(),
-                insurance.getCustomer_Id(),
-                insurance.getCompany_Name(),
-                insurance.getDiscount()
-        );*/
-
-       return SQLUtil.execute("INSERT INTO insurance (Insurance_Id, Customer_Id, Company_Name, Discount) VALUES (?, ?, ?, ?)",
+         return SQLUtil.execute("INSERT INTO insurance (Insurance_Id, Customer_Id, Company_Name, Discount) VALUES (?, ?, ?, ?)",
                 insurance.getInsurance_Id(),
                 insurance.getCustomer_Id(),
                 insurance.getCompany_Name(),

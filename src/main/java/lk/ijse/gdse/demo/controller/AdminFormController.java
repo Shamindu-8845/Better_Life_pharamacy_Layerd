@@ -166,7 +166,6 @@ public class AdminFormController {
 
     OrderDetailsBO orderDetailsBO = (OrderDetailsBO) BOFactory.getInstance().getBO(BOFactory.BOType.ORDERDETAILS);
 
-    // Assuming you have a method to get the total customers count
     public void initialize() {
         XAxis.setLabel("Date");
         YAxis.setLabel("Number of orders");
@@ -203,28 +202,21 @@ public class AdminFormController {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
 
-        // Create a Timeline to update the time every second
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), event -> {
-                    // Get the current time and format it
                     String currentTime = LocalTime.now().format(formatter);
-                    // Set the formatted time to the label
                     lblCurrentTime.setText(currentTime);
                 })
         );
 
-        // Make the timeline run indefinitely
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        // Start the timeline
         timeline.play();
     }
 
 
     private void loadLineChartData() {
-        // Example: Fetching data from the database
         try {
-            // Example query: Count orders per day
             String query = "SELECT Order_Date, COUNT(*) as OrderCount FROM Orders GROUP BY Order_Date ORDER BY Order_Date";
             ResultSet resultSet = CrudUtil.execute(query);
 
@@ -265,11 +257,10 @@ public class AdminFormController {
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
-                // Close the current window if needed
                 ((Stage)AdminFormAnchorPane.getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to load FXML at path: " + fxmlPath); // Log the FXML path
+            System.out.println("Failed to load FXML at path: " + fxmlPath);
             new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
         }
 
