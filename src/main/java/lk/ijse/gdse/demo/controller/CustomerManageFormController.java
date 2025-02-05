@@ -82,11 +82,10 @@ public class CustomerManageFormController {
         try {
             boolean isAdded = customerBO.add(customerDTO);
             if (isAdded) {
-                loadCustomers();// Reload customer list after addition
-                clearFields();// Clear the input fields
+                loadCustomers();
+                clearFields();
                 txtCust_Id.setText(customerBO.generateNewId());
             } else {
-                // Display error or success message
                 System.out.println("Failed to add customer.");
             }
         } catch (SQLException e) {
@@ -101,10 +100,9 @@ public class CustomerManageFormController {
         try {
             boolean isDeleted = customerBO.delete(customerId);
             if (isDeleted) {
-                loadCustomers();  // Reload the list after deleting
-                clearFields();    // Clear the input fields
+                loadCustomers();
+                clearFields();
             } else {
-                // Display error or success message
                 System.out.println("Failed to delete customer.");
             }
         } catch (SQLException e) {
@@ -131,9 +129,8 @@ public class CustomerManageFormController {
         try {
             boolean isUpdated = customerBO.update(customerDTO);
             if (isUpdated) {
-                loadCustomers();  // Reload the list after updating
+                loadCustomers();
             } else {
-                // Display error or success message
                 System.out.println("Failed to update customer.");
             }
         } catch (SQLException e) {
@@ -162,7 +159,6 @@ public class CustomerManageFormController {
         tblCustomer.setOnMouseClicked(this::onRowClick);
 
         try {
-//            refreshPage();
             String nextSupplierId = customerBO.generateNewId();
             txtCust_Id.setText(nextSupplierId);
         } catch (SQLException e) {
@@ -186,17 +182,14 @@ public class CustomerManageFormController {
     @FXML
     void onActionReset(ActionEvent event) {
         try {
-            // Get the next available Customer_Id and set it to the text field
             String nextCustomerId = customerBO.generateNewId();
             txtCust_Id.setText(nextCustomerId);
 
-            // Clear the other input fields
             txtName.clear();
             txtPhoeNo.clear();
             txtAddress.clear();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Optionally handle the error, such as showing an alert
         }
     }
 
@@ -219,11 +212,10 @@ public class CustomerManageFormController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            // Close the current window if needed
             ((Stage)content.getScene().getWindow()).close();
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Failed to load FXML at path: " + fxmlPath); // Log the FXML path
+            System.out.println("Failed to load FXML at path: " + fxmlPath);
             new Alert(Alert.AlertType.ERROR, "Fail to load page!").show();
         }
 
