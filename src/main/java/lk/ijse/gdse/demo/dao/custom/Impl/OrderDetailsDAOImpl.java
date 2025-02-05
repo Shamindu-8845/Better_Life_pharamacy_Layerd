@@ -63,6 +63,7 @@
 package lk.ijse.gdse.demo.dao.custom.Impl;
 
 import javafx.collections.ObservableList;
+import lk.ijse.gdse.demo.dao.SQLUtil;
 import lk.ijse.gdse.demo.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.demo.dto.OderDetailsDTO;
 import lk.ijse.gdse.demo.entity.OderDetails;
@@ -120,11 +121,8 @@ public static boolean saveOrderDetailsList(ArrayList<OderDetailsDTO> orderDetail
 
 
     public double getTotalPrice() throws SQLException {
-        String query = "SELECT SUM(quantity * Price) FROM OrderDetails";
-
-        ResultSet resultSet = CrudUtil.execute(query);
-
-        if (resultSet.next()) {
+      ResultSet resultSet = SQLUtil.execute("SELECT SUM(quantity * Price) FROM OrderDetails");
+       if (resultSet.next()) {
             return resultSet.getDouble(1);
         } else {
             return 0.0;
